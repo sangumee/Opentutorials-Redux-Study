@@ -4,20 +4,24 @@
 
  /* Redux Reducer Function */
  function reducer(state, action){
-    console.log(state, action);
     if(state === undefined){
         return {color:'yellow'}
     }
-    let newState;
+    var newState;
     if(action.type === 'CHANGE_COLOR'){
         newState = Object.assign({}, state, {color:action.color});
     }
+    console.log(action.type, action, state, newState);
     return newState;
 }
-let store = Redux.createStore(reducer);
-function red() {
-    let state = store.getState();
-    document.querySelector('#red').innerHTML = `
+var store = Redux.createStore(
+    reducer,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()    
+);
+
+ function red() {
+     let state = store.getState();
+     document.querySelector('#red').innerHTML = `
         <div class="container" id="component_red" style="background-color:${state.color}">
             <h1>red</h1>
             <input type="button" value="fire" onclick="
@@ -25,12 +29,13 @@ function red() {
             ">
         </div>
     `;
-}
-store.subscribe(red);
-red();
-function blue() {
-    let state = store.getState();
-    document.querySelector('#blue').innerHTML = `
+ }
+ store.subscribe(red);
+ red();
+
+ function blue() {
+     let state = store.getState();
+     document.querySelector('#blue').innerHTML = `
         <div class="container" id="component_blue" style="background-color:${state.color}">
             <h1>blue</h1>
             <input type="button" value="fire" onclick="
@@ -38,12 +43,13 @@ function blue() {
             ">
         </div>
     `;
-}
-store.subscribe(blue);
-blue();
-function green() {
-    let state = store.getState();
-    document.querySelector('#green').innerHTML = `
+ }
+ store.subscribe(blue);
+ blue();
+
+ function green() {
+     let state = store.getState();
+     document.querySelector('#green').innerHTML = `
         <div class="container" id="component_green" style="background-color:${state.color}">
             <h1>green</h1>
             <input type="button" value="fire" onclick="
@@ -51,6 +57,6 @@ function green() {
             ">
         </div>
     `;
-}
-store.subscribe(green);
-green();
+ }
+ store.subscribe(green);
+ green();
