@@ -1,3 +1,4 @@
+/* Subject Function */
 function subject() {
     document.querySelector('#subject').innerHTML = `
     <header>
@@ -7,8 +8,9 @@ function subject() {
 `
 }
 
+/* Table of Contents Function */
 function TOC() {
-    let state = store.getState();
+    let state = store.getState(); // Get store data from Redux
     let liTags = '';
     for (let i = 0; i < state.contents.length; i++) {
         liTags = liTags + `
@@ -22,6 +24,7 @@ function TOC() {
             </a>
         </li>`
     }
+    /* Return data to ID toc */
     document.querySelector('#toc').innerHTML = `
     <nav>
         <ol>
@@ -30,6 +33,7 @@ function TOC() {
     </nav>`
 }
 
+/* Control Funciton */
 function control() {
     document.querySelector('#control').innerHTML = `
     <ul>
@@ -50,6 +54,7 @@ function control() {
     </ul>`
 }
 
+/* Article Function */
 function article() {
     let state = store.getState();
     if (state.mode === 'create') {
@@ -101,8 +106,8 @@ function article() {
     }
 }
 
+/* Reducer Function */
 function reducer(state, action) {
-
     if (state === undefined) {
         return {
             max_id: 3,
@@ -166,10 +171,13 @@ function reducer(state, action) {
     console.log(action, state, newState);
     return newState;
 }
+/* Redux Store Function */
 const store = Redux.createStore(reducer,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 store.subscribe(article);
 store.subscribe(TOC);
+
+/* Execute Functions */
 subject();
 TOC();
 control();
